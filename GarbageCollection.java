@@ -3,17 +3,37 @@ package LeetCode;
 /**git
  * GarbageCollectiongit
  */
-public class GarbageCollection {
-public int garbageCollection(String[] garbage, int[] travel) 
-{
-        String []  G = {"G","P","GP","GG"};
-        int [] T = {2,4,3};
-        for (int i=0; i<=G.length;i++ )
-        { for (int j=0; j<=T.length; j++)
-
-        {System.out.println("Minimum No of minutes needed to pick up all the garbage:" + i);
+class Solution {
+    public int garbageCollection(String[] garbage, int[] travel) {
+        int n = garbage.length;
+        int ans = 0;
+        for (int i = 0; i < n - 1; i++) {
+            ans += 3 * travel[i];
         }
+        for (String s : garbage) {
+            ans += s.length();
         }
-      return 0;  
+        for (int i = n - 1; i > 0; i--) {
+            if (!garbage[i].contains("G")) {
+                ans -= travel[i - 1];
+            } else {
+                break;
+            }
+        }
+        for (int i = n - 1; i > 0; i--) {
+            if (!garbage[i].contains("P")) {
+                ans -= travel[i - 1];
+            } else {
+                break;
+            }
+        }
+        for (int i = n - 1; i > 0; i--) {
+            if (!garbage[i].contains("M")) {
+                ans -= travel[i - 1];
+            } else {
+                break;
+            }
+        }
+        return ans;
     }
 }
